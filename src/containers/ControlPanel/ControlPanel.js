@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import Wrapper from '../../hoc/Wrapper/Wrapper';
+import './ControlPanel.scss';
 import {connect} from 'react-redux';
 import {fetchSerialNumber} from '../../actions/safe';
 
@@ -10,9 +12,9 @@ export class ControlPanel extends Component {
 
     render() {
         return (
-            <div>
+            <Wrapper componentName="ControlPanel">
                 
-            </div>
+            </Wrapper>
         )
     }
 }
