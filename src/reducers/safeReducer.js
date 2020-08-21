@@ -5,7 +5,8 @@ const initialState = {
     currentState: {},
     currentPassword: '',
     enteredPassword: '',
-    enteredMasterCode: ''
+    enteredMasterCode: '',
+    serialNumber: '4815162342'
 };
 
 export default function(state = initialState, action) {
@@ -15,7 +16,7 @@ export default function(state = initialState, action) {
                 ...state,
                 items: action.payload
             };
-        default: 
+        default:
             return state;
     }
 }

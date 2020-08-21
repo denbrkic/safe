@@ -1,0 +1,11 @@
+$screenBackground: #7fffff;
+
+.Screen {
+    background-color: $screenBackground;
+    border: 1px solid black;
+    border-radius: 5px;
+    margin-bottom: 30px;
+    height: 200px;
+    width: 100%;
+    position: relative;
+}

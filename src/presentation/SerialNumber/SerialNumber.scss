@@ -1,0 +1,14 @@
+$serialNumberColor: #434343;
+
+.SerialNumber {
+    color: $serialNumberColor;
+    font-size: 16px;
+    font-weight: 500;
+    position: relative;
+    
+    .SerialNumber--text {
+        position: absolute;
+        bottom: -25px;
+        right: -30px;
+    }
+}

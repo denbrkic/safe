@@ -1,0 +1,11 @@
+$textColor: #434343;
+
+.Status {
+    color: $textColor;
+    position: absolute;
+    bottom: 10px;
+    right: 2px;
+    text-align: right;
+    font-weight: 500;
+    font-size: 40px;
+}

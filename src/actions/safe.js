@@ -1,4 +1,4 @@
-import { FETCH_SERIAL_NUMBER } from './types';
+//import { FETCH_SERIAL_NUMBER } from './types';
 
 export const fetchSerialNumber = (payload) => dispatch => {
     /*fetch('https://jsonplaceholder.typicode.com/posts')
