@@ -2,7 +2,9 @@ import { FETCH_SERIAL_NUMBER } from '../actions/types';
 
 const initialState = {
     states: [],
-    currentState: {},
+    currentStateId: 1,
+    currentStatus: 'Ready',
+    currentIndicator: 'Unlocked',
     currentPassword: '',
     enteredPassword: '',
     enteredMasterCode: '',
