@@ -11,7 +11,7 @@ export class Screen extends Component {
         return (
             <Wrapper componentName="Screen">
                 <Indicator text="Unlocked" />
-                <Status text="123456789012345" />
+                <Status text="12345678901234" />
             </Wrapper>
         )
     }
