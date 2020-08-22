@@ -4,20 +4,9 @@ import {
     DISPLAY_STATE,
     CHANGE_STATE,
     VERIFY_PASSWORD,
-    TOGGLE_KEY_INPUT 
+    TOGGLE_KEY_INPUT,
+    VERIFY_MASTER_PASSWORD 
 } from './types';
-
-/*export const updateScreenContents = (payload) => dispatch => {
-    /*fetch('https://jsonplaceholder.typicode.com/posts')
-        .then(response => response.json())
-        .then(serialNumber => {
-            dispatch({
-                type: FETCH_SERIAL_NUMBER,
-                payload: serialNumber,
-            })
-        })*/
-    /*console.log(payload);
-}*/
 
 export const updateScreenContents = (payload) => dispatch => {
     dispatch({
@@ -56,4 +45,16 @@ export const verifyPassword = () => dispatch => {
     dispatch({
         type: VERIFY_PASSWORD
     });
+}
+
+export const verifyMasterPassword = (payload) => dispatch => {
+    fetch(`https://9w4qucosgf.execute-api.eu-central-1.amazonaws.com/default/CR-JS_team_M02a?code=${payload}`)
+        .then(response => response.json())
+        .then(response => {
+            console.log(response);
+            dispatch({
+                type: VERIFY_MASTER_PASSWORD,
+                payload: response.sn,
+            })
+        });
 }

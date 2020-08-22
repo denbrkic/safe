@@ -4,7 +4,8 @@ import {
     SET_NEW_PASSWORD,
     DISPLAY_STATE,
     CHANGE_STATE,
-    VERIFY_PASSWORD
+    VERIFY_PASSWORD,
+    VERIFY_MASTER_PASSWORD
 } from '../actions/types';
 
 const initialState = {
@@ -49,10 +50,11 @@ const initialState = {
     currentIndicator: '',
     currentPassword: '',
     enteredMasterCode: '',
-    serialNumber: '4815162342',
+    serialNumber: 4815162342,
     currentScreenContents: '',
     keyInputDisabled: false,
-    isMatch: false
+    isMatch: false,
+    isMasterCodeMatch: false
 };
 
 export default function(state = initialState, action) {
@@ -91,6 +93,12 @@ export default function(state = initialState, action) {
             return {
                 ...state,
                 isMatch
+            };
+        case VERIFY_MASTER_PASSWORD:
+            const isMasterCodeMatch = state.serialNumber === action.payload;
+            return {
+                ...state,
+                isMasterCodeMatch
             };
         default:
             return state;
