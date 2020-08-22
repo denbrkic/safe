@@ -10,15 +10,16 @@ export class Screen extends Component {
     render() {
         return (
             <Wrapper componentName="Screen">
-                <Indicator text="Unlocked" />
-                <Status text="12345678901234" />
+                <Indicator text={this.props.currentIndicator} />
+                <Status text={this.props.currentScreenContents} />
             </Wrapper>
         )
     }
 }
 
 const mapStateToProps = (state) => ({
-    //states: state.data.states
+    currentScreenContents: state.safe.currentScreenContents,
+    currentIndicator: state.safe.currentIndicator
 });
 
 const mapDispatchToProps = (dispatch) => ({
