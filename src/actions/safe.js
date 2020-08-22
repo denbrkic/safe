@@ -51,10 +51,12 @@ export const verifyMasterPassword = (payload) => dispatch => {
     fetch(`https://9w4qucosgf.execute-api.eu-central-1.amazonaws.com/default/CR-JS_team_M02a?code=${payload}`)
         .then(response => response.json())
         .then(response => {
-            console.log(response);
             dispatch({
                 type: VERIFY_MASTER_PASSWORD,
                 payload: response.sn,
             })
+        })
+        .catch(error => {
+            console.error('There is a server problem. Please try again later.', error);
         });
 }
