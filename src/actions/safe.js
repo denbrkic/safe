@@ -5,13 +5,14 @@ import {
     CHANGE_STATE,
     VERIFY_PASSWORD,
     TOGGLE_KEY_INPUT,
-    VERIFY_MASTER_PASSWORD 
+    VERIFY_MASTER_PASSWORD,
+    DEVICE_ON
 } from './types';
 
 export const updateScreenContents = (payload) => dispatch => {
     dispatch({
         type: UPDATE_SCREEN_CONTENTS,
-        payload: payload,
+        payload
     });
 }
 
@@ -30,14 +31,14 @@ export const setNewPassword = () => dispatch => {
 export const displayState = (payload) => dispatch => {
     dispatch({
         type: DISPLAY_STATE,
-        payload: payload,
+        payload
     });
 }
 
 export const changeState = (payload) => dispatch => {
     dispatch({
         type: CHANGE_STATE,
-        payload: payload,
+        payload
     });
 }
 
@@ -59,4 +60,11 @@ export const verifyMasterPassword = (payload) => dispatch => {
         .catch(error => {
             console.error('There is a server problem. Please try again later.', error);
         });
+}
+
+export const deviceOn = (payload) => dispatch => {
+    dispatch({
+        type: DEVICE_ON,
+        payload
+    });
 }

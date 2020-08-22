@@ -10,12 +10,14 @@ import {
     displayState,
     changeState,
     verifyPassword,
-    verifyMasterPassword
+    verifyMasterPassword,
+    deviceOn
 } from '../../actions/safe';
 
 export class Keypad extends Component {
 
     endInputTimeout = null;
+    deviceTimeout = null;
 
     componentDidMount() {
         this.props.onDisplayState(this.props.currentStateId);
@@ -30,6 +32,14 @@ export class Keypad extends Component {
     }
 
     onKeyClickCallback = (key) => {
+        if (this.deviceTimeout !== null) {
+            clearTimeout(this.deviceTimeout);
+        }
+
+        if (!this.props.isDeviceOn) {
+            this.props.onDeviceOn(true);
+        }
+        
         if (this.props.keyInputDisabled === false) {
             if (this.props.currentStateId === 1 && this.props.currentScreenContents.length < 6 && !isNaN(key)) {
                 // The panel is ready for password input
@@ -85,7 +95,9 @@ export class Keypad extends Component {
 
             if (this.props.currentStateId === 6 && this.props.currentScreenContents.length <= 13) {
                 // Service mode
-                clearTimeout(this.endInputTimeout);
+                if (this.endInputTimeout !== null) {
+                    clearTimeout(this.endInputTimeout);
+                }
                 this.props.onUpdateScreenContents(key);
 
                 this.endInputTimeout = setTimeout(() => {
@@ -109,6 +121,11 @@ export class Keypad extends Component {
                 }, 1200);
             }
         }
+
+        // Turn the device off after x seconds of inactivity...
+        this.deviceTimeout = setTimeout(() => {
+            this.props.onDeviceOn(false);
+        }, 15000);
     }
 
     render() {
@@ -146,7 +163,8 @@ const mapStateToProps = (state) => ({
     currentScreenContents: state.safe.currentScreenContents,
     keyInputDisabled: state.safe.keyInputDisabled,
     isMatch: state.safe.isMatch,
-    isMasterCodeMatch: state.safe.isMasterCodeMatch
+    isMasterCodeMatch: state.safe.isMasterCodeMatch,
+    isDeviceOn: state.safe.isDeviceOn
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -156,7 +174,8 @@ const mapDispatchToProps = (dispatch) => ({
     onDisplayState: (payload) => dispatch(displayState(payload)),
     onChangeState: (payload) => dispatch(changeState(payload)),
     onVerifyPassword: (payload) => dispatch(verifyPassword(payload)),
-    onVerifyMasterPassword: (payload) => dispatch(verifyMasterPassword(payload))
+    onVerifyMasterPassword: (payload) => dispatch(verifyMasterPassword(payload)),
+    onDeviceOn: (payload) => dispatch(deviceOn(payload))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Keypad);

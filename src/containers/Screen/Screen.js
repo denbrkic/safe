@@ -9,8 +9,10 @@ export class Screen extends Component {
     render() {
         return (
             <Wrapper componentName="Screen">
-                <Indicator text={this.props.currentIndicator} />
-                <Status text={this.props.currentScreenContents} />
+                <div id="screen-switch" className={`Screen--switch ${this.props.isDeviceOn ? 'Screen--switch-on' : 'Screen--switch-off'}`}>
+                    <Indicator text={this.props.currentIndicator} />
+                    <Status text={this.props.currentScreenContents} />
+                </div>
             </Wrapper>
         )
     }
@@ -18,7 +20,8 @@ export class Screen extends Component {
 
 const mapStateToProps = (state) => ({
     currentScreenContents: state.safe.currentScreenContents,
-    currentIndicator: state.safe.currentIndicator
+    currentIndicator: state.safe.currentIndicator,
+    isDeviceOn: state.safe.isDeviceOn
 });
 
 const mapDispatchToProps = (dispatch) => ({});

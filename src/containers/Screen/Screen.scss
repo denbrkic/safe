@@ -1,11 +1,25 @@
-$screenBackground: #7fffff;
+$screenBackgroundOn: #7fffff;
+$screenBackgroundOff: #47b2b2;
 
 .Screen {
-    background-color: $screenBackground;
-    border: 1px solid black;
     border-radius: 5px;
     margin-bottom: 30px;
     height: 200px;
     width: 100%;
     position: relative;
+
+    .Screen--switch {
+        height: 200px;
+        width: 100%;
+        border-radius: 5px;
+        border: 1px solid black;
+
+        &.Screen--switch-on {
+            background-color: $screenBackgroundOn;
+        }
+    
+        &.Screen--switch-off {
+            background-color: $screenBackgroundOff;
+        }
+    }
 }

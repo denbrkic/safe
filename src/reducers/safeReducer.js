@@ -5,7 +5,8 @@ import {
     DISPLAY_STATE,
     CHANGE_STATE,
     VERIFY_PASSWORD,
-    VERIFY_MASTER_PASSWORD
+    VERIFY_MASTER_PASSWORD,
+    DEVICE_ON
 } from '../actions/types';
 
 const initialState = {
@@ -54,7 +55,8 @@ const initialState = {
     currentScreenContents: '',
     keyInputDisabled: false,
     isMatch: false,
-    isMasterCodeMatch: false
+    isMasterCodeMatch: false,
+    isDeviceOn: false
 };
 
 export default function(state = initialState, action) {
@@ -99,6 +101,11 @@ export default function(state = initialState, action) {
             return {
                 ...state,
                 isMasterCodeMatch
+            };
+        case DEVICE_ON:
+            return {
+                ...state,
+                isDeviceOn: action.payload
             };
         default:
             return state;
