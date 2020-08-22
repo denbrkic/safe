@@ -2,7 +2,9 @@ import {
     UPDATE_SCREEN_CONTENTS,
     TOGGLE_KEY_INPUT,
     SET_NEW_PASSWORD,
-    DISPLAY_STATE
+    DISPLAY_STATE,
+    CHANGE_STATE,
+    VERIFY_PASSWORD
 } from '../actions/types';
 
 const initialState = {
@@ -46,17 +48,18 @@ const initialState = {
     currentStateId: 1,
     currentIndicator: '',
     currentPassword: '',
-    enteredPassword: '',
     enteredMasterCode: '',
     serialNumber: '4815162342',
     currentScreenContents: '',
     keyInputDisabled: false,
+    isMatch: false
 };
 
 export default function(state = initialState, action) {
     switch(action.type) {
         case UPDATE_SCREEN_CONTENTS:
-            const currentInput = state.currentScreenContents === 'Ready' ? '' :  state.currentScreenContents;
+            const dismissibleStatuses = ['Ready', 'Service'];
+            const currentInput = dismissibleStatuses.includes(state.currentScreenContents) ? '' :  state.currentScreenContents;
             return {
                 ...state,
                 currentScreenContents: currentInput + action.payload
@@ -77,6 +80,17 @@ export default function(state = initialState, action) {
                 ...state,
                 currentScreenContents: currentState.status,
                 currentIndicator: currentState.indicator
+            };
+        case CHANGE_STATE:
+            return {
+                ...state,
+                currentStateId: action.payload
+            };
+        case VERIFY_PASSWORD:
+            const isMatch = state.currentScreenContents === state.currentPassword;
+            return {
+                ...state,
+                isMatch
             };
         default:
             return state;

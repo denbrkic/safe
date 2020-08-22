@@ -7,10 +7,16 @@ import {
     updateScreenContents, 
     toggleKeyInput,
     setNewPassword,
-    displayState
+    displayState,
+    changeState,
+    verifyPassword
 } from '../../actions/safe';
 
 export class Keypad extends Component {
+
+    state = {
+        isMatch: false
+    }
 
     componentDidMount() {
         this.props.onDisplayState(this.props.currentStateId);
@@ -19,13 +25,71 @@ export class Keypad extends Component {
     onKeyClickCallback = (key) => {
         if (this.props.keyInputDisabled === false) {
             if (this.props.currentStateId === 1 && this.props.currentScreenContents.length < 6 && !isNaN(key)) {
+                // The panel is ready for password input
                 this.props.onUpdateScreenContents(key);
             }
 
             if (this.props.currentStateId === 1 && this.props.currentScreenContents.length === 6 && key === 'L') {
-                this.props.onToggleKeyInput();
+                // Set the new password and lock the door
+                this.props.onToggleKeyInput();  // disable keys
                 this.props.onSetNewPassword();
-                console.log('keyboard disabled');
+                this.props.onChangeState(2);
+                this.props.onDisplayState(2);
+                // Start locking...
+                setTimeout(() => {
+                    this.props.onChangeState(3);
+                    this.props.onDisplayState(3);
+                    this.props.onToggleKeyInput();  // enable keys
+                }, 3000);
+            }
+
+            if (this.props.currentStateId === 3 && this.props.currentScreenContents.length < 5 && !isNaN(key)) {
+                // Input your password to unlock
+                this.props.onUpdateScreenContents(key);
+            }
+
+            if (this.props.currentStateId === 3 && this.props.currentScreenContents.length === 5) {
+                // Verify the password
+                this.props.onUpdateScreenContents(key);
+                this.props.onToggleKeyInput();  // disable keys
+                setTimeout(() => {
+                    this.props.onVerifyPassword();
+                    if (this.props.isMatch) {
+                        this.props.onChangeState(4);
+                        this.props.onDisplayState(4);
+                        // Start unlocking...
+                        setTimeout(() => {
+                            this.props.onChangeState(1);
+                            this.props.onDisplayState(1);
+                            this.props.onToggleKeyInput();  // enable keys
+                        }, 3000);
+                    } else {
+                        // No Match
+                        if (this.props.currentScreenContents === '000000') {
+                            // Enter service mode
+                            setTimeout(() => {
+                                this.props.onChangeState(6);
+                                this.props.onDisplayState(6);
+                                this.props.onToggleKeyInput();  // enable keys
+                            }, 1200);
+                        } else {
+                            // Error
+                            this.props.onChangeState(5);
+                            this.props.onDisplayState(5);
+                            // Go back to password verification
+                            setTimeout(() => {
+                                this.props.onChangeState(3);
+                                this.props.onDisplayState(3);
+                                this.props.onToggleKeyInput();  // enable keys
+                            }, 1200);
+                        }
+                    }
+                }, 1200);
+            }
+
+            if (this.props.currentStateId === 6 && this.props.currentScreenContents.length < 13) {
+                // Service mode
+                this.props.onUpdateScreenContents(key);
             }
         }
     }
@@ -63,14 +127,17 @@ export class Keypad extends Component {
 const mapStateToProps = (state) => ({
     currentStateId: state.safe.currentStateId,
     currentScreenContents: state.safe.currentScreenContents,
-    keyInputDisabled: state.safe.keyInputDisabled
+    keyInputDisabled: state.safe.keyInputDisabled,
+    isMatch: state.safe.isMatch
 });
 
 const mapDispatchToProps = (dispatch) => ({
     onUpdateScreenContents: (payload) => dispatch(updateScreenContents(payload)),
     onToggleKeyInput: () => dispatch(toggleKeyInput()),
     onSetNewPassword: () => dispatch(setNewPassword()),
-    onDisplayState: (payload) => dispatch(displayState(payload))
+    onDisplayState: (payload) => dispatch(displayState(payload)),
+    onChangeState: (payload) => dispatch(changeState(payload)),
+    onVerifyPassword: (payload) => dispatch(verifyPassword(payload))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Keypad);

@@ -2,9 +2,8 @@ import {
     UPDATE_SCREEN_CONTENTS,
     SET_NEW_PASSWORD,
     DISPLAY_STATE,
-    START_LOCKING,
-    UPDATE_LOCKED_INDICATOR,
-    UPDATE_STATE,
+    CHANGE_STATE,
+    VERIFY_PASSWORD,
     TOGGLE_KEY_INPUT 
 } from './types';
 
@@ -43,5 +42,18 @@ export const displayState = (payload) => dispatch => {
     dispatch({
         type: DISPLAY_STATE,
         payload: payload,
+    });
+}
+
+export const changeState = (payload) => dispatch => {
+    dispatch({
+        type: CHANGE_STATE,
+        payload: payload,
+    });
+}
+
+export const verifyPassword = () => dispatch => {
+    dispatch({
+        type: VERIFY_PASSWORD
     });
 }

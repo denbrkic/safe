@@ -4,7 +4,6 @@ import Status from '../../presentation/Status/Status';
 import Indicator from '../../presentation/Indicator/Indicator';
 import './Screen.scss';
 import {connect} from 'react-redux';
-import {fetchSerialNumber} from '../../actions/safe';
 
 export class Screen extends Component {
     render() {
@@ -22,8 +21,6 @@ const mapStateToProps = (state) => ({
     currentIndicator: state.safe.currentIndicator
 });
 
-const mapDispatchToProps = (dispatch) => ({
-    //onFetchSerialNumber: (payload) => dispatch(fetchSerialNumber(payload)),
-});
+const mapDispatchToProps = (dispatch) => ({});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Screen);
