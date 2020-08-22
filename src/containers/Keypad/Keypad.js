@@ -21,6 +21,14 @@ export class Keypad extends Component {
         this.props.onDisplayState(this.props.currentStateId);
     }
 
+    updateState = (stateId, toggleKeys = true) => {
+        if (toggleKeys) {
+            this.props.onToggleKeyInput();
+        }
+        this.props.onChangeState(stateId);
+        this.props.onDisplayState(stateId);
+    }
+
     onKeyClickCallback = (key) => {
         if (this.props.keyInputDisabled === false) {
             if (this.props.currentStateId === 1 && this.props.currentScreenContents.length < 6 && !isNaN(key)) {
@@ -30,15 +38,11 @@ export class Keypad extends Component {
 
             if (this.props.currentStateId === 1 && this.props.currentScreenContents.length === 6 && key === 'L') {
                 // Set the new password and lock the door
-                this.props.onToggleKeyInput();  // disable keys
                 this.props.onSetNewPassword();
-                this.props.onChangeState(2);
-                this.props.onDisplayState(2);
+                this.updateState(2);
                 // Start locking...
                 setTimeout(() => {
-                    this.props.onChangeState(3);
-                    this.props.onDisplayState(3);
-                    this.props.onToggleKeyInput();  // enable keys
+                    this.updateState(3);
                 }, 3000);
             }
 
@@ -55,32 +59,24 @@ export class Keypad extends Component {
                     this.props.onVerifyPassword();
                     if (this.props.isMatch) {
                         // There is a match
-                        this.props.onChangeState(4);
-                        this.props.onDisplayState(4);
+                        this.updateState(4, false);
                         // Start unlocking...
                         setTimeout(() => {
-                            this.props.onChangeState(1);
-                            this.props.onDisplayState(1);
-                            this.props.onToggleKeyInput();  // enable keys
+                            this.updateState(1);
                         }, 3000);
                     } else {
                         // No Match
                         if (this.props.currentScreenContents === '000000') {
                             // Enter service mode
                             setTimeout(() => {
-                                this.props.onChangeState(6);
-                                this.props.onDisplayState(6);
-                                this.props.onToggleKeyInput();  // enable keys
+                                this.updateState(6);
                             }, 1200);
                         } else {
                             // Error
-                            this.props.onChangeState(5);
-                            this.props.onDisplayState(5);
+                            this.updateState(5, false);
                             // Go back to password verification
                             setTimeout(() => {
-                                this.props.onChangeState(3);
-                                this.props.onDisplayState(3);
-                                this.props.onToggleKeyInput();  // enable keys
+                                this.updateState(3);
                             }, 1200);
                         }
                     }
@@ -93,29 +89,21 @@ export class Keypad extends Component {
                 this.props.onUpdateScreenContents(key);
 
                 this.endInputTimeout = setTimeout(() => {
-                    this.props.onToggleKeyInput();  // disable keys
-                    this.props.onChangeState(7);
-                    this.props.onDisplayState(7);
+                    this.updateState(7);
                     this.props.onVerifyMasterPassword();
                     if (this.props.isMasterCodeMatch) {
                         // There is a match
-                        this.props.onChangeState(4);
-                        this.props.onDisplayState(4);
+                        this.updateState(4, false);
                         // Start unlocking...
                         setTimeout(() => {
-                            this.props.onChangeState(1);
-                            this.props.onDisplayState(1);
-                            this.props.onToggleKeyInput();  // enable keys
+                            this.updateState(1);
                         }, 3000);
                     } else {
                         // Error
-                        this.props.onChangeState(5);
-                        this.props.onDisplayState(5);
+                        this.updateState(5, false);
                         // Go back to password verification
                         setTimeout(() => {
-                            this.props.onChangeState(3);
-                            this.props.onDisplayState(3);
-                            this.props.onToggleKeyInput();  // enable keys
+                            this.updateState(3);
                         }, 1200);
                     }
                 }, 1200);
