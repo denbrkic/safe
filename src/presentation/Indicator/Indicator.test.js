@@ -14,7 +14,7 @@ describe('Indicator component', () => {
             text: 'Unlocked'
         };
 
-        wrapper = shallow(<Indicator {...props} />);
+        wrapper = shallow(<Indicator { ...props } />);
     });
 
     test('should contain the text passed by the prop', () => {

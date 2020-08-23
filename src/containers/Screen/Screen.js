@@ -3,15 +3,15 @@ import Wrapper from '../../hoc/Wrapper/Wrapper';
 import Status from '../../presentation/Status/Status';
 import Indicator from '../../presentation/Indicator/Indicator';
 import './Screen.scss';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
 export class Screen extends Component {
     render() {
         return (
             <Wrapper componentName="Screen">
                 <div id="screen-switch" className={`Screen--switch ${this.props.isDeviceOn ? 'Screen--switch-on' : 'Screen--switch-off'}`}>
-                    <Indicator text={this.props.currentIndicator} />
-                    <Status text={this.props.currentScreenContents} />
+                    <Indicator text={ this.props.currentIndicator } />
+                    <Status text={ this.props.currentScreenContents } />
                 </div>
             </Wrapper>
         )
@@ -24,6 +24,6 @@ const mapStateToProps = (state) => ({
     isDeviceOn: state.safe.isDeviceOn
 });
 
-const mapDispatchToProps = (dispatch) => ({});
+const mapDispatchToProps = () => ({});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Screen);

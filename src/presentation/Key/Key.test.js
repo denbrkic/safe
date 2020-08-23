@@ -14,7 +14,7 @@ describe('Key component', () => {
             digit: '7'
         };
 
-        wrapper = shallow(<Key {...props} />);
+        wrapper = shallow(<Key { ...props } />);
     });
 
     test('should contain the text passed by the prop', () => {

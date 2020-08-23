@@ -26,7 +26,7 @@ describe('Screen container component', () => {
         const props = {
             isDeviceOn: true
         }
-        const wrapper = shallow(<Screen {...props} />);
+        const wrapper = shallow(<Screen { ...props } />);
         expect(wrapper.find('.Screen--switch').hasClass('Screen--switch-on')).toBe(true);
     });
 });

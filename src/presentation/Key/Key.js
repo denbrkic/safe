@@ -9,8 +9,8 @@ const Key = (props) => {
 
     return (
         <Wrapper componentName="Key" on>
-            <div className="Key--digit" onClick={onKeyClick}>
-                {props.digit}
+            <div className="Key--digit" onClick={ onKeyClick }>
+                { props.digit }
             </div>
         </Wrapper>
     )

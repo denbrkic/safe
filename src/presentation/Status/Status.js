@@ -5,7 +5,7 @@ import './Status.scss';
 const Status = (props) => {
     return (
         <Wrapper componentName="Status">
-            <span>{props.text}</span>
+            <span>{ props.text }</span>
         </Wrapper>
     );
 }

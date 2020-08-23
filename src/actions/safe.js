@@ -52,7 +52,6 @@ export const verifyMasterPassword = (payload) => async (dispatch) => {
     try {
         const response = await fetch(`https://9w4qucosgf.execute-api.eu-central-1.amazonaws.com/default/CR-JS_team_M02a?code=${payload}`);
         const serialNumber = await response.json();
-        console.log(serialNumber);
         dispatch({
             type: VERIFY_MASTER_PASSWORD,
             payload: serialNumber.sn,

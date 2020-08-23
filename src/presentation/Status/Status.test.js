@@ -14,7 +14,7 @@ describe('Status component', () => {
             text: 'Ready'
         };
 
-        wrapper = shallow(<Status {...props} />);
+        wrapper = shallow(<Status { ...props } />);
     });
 
     test('should contain the correct text passed by props', () => {

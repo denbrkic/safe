@@ -14,10 +14,10 @@ describe('SerialNumber component', () => {
             sn: 7131566486
         };
 
-        wrapper = shallow(<SerialNumber {...props} />);
+        wrapper = shallow(<SerialNumber { ...props } />);
     });
 
     test('should contain the correct text', () => {
-        expect(wrapper.find('.SerialNumber--text').text()).toBe(`S/N: ${props.sn}`);
+        expect(wrapper.find('.SerialNumber--text').text()).toBe(`S/N: ${ props.sn }`);
     });
 });

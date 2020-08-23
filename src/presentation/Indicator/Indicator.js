@@ -5,7 +5,7 @@ import './Indicator.scss';
 const Indicator = (props) => {
     return (
         <Wrapper componentName="Indicator">
-            <span>{props.text}</span>
+            <span>{ props.text }</span>
         </Wrapper>
     );
 }

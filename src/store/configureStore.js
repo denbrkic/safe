@@ -4,7 +4,7 @@ import rootReducer from '../reducers';
 
 const initialState = {};
 
-const middleware = [ReduxThunk];
+const middleware = [ ReduxThunk ];
 
 const store = createStore(
     rootReducer,

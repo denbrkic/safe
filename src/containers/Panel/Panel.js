@@ -4,7 +4,7 @@ import SerialNumber from '../../presentation/SerialNumber/SerialNumber';
 import Screen from '../Screen/Screen';
 import './Panel.scss';
 import Keypad from '../Keypad/Keypad';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
 export class Panel extends Component {
     render() {

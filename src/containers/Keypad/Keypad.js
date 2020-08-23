@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Wrapper from '../../hoc/Wrapper/Wrapper';
 import Key from '../../presentation/Key/Key';
 import './Keypad.scss';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import {
     updateScreenContents, 
     toggleKeyInput,
@@ -101,8 +101,8 @@ export class Keypad extends Component {
                 this.props.onUpdateScreenContents(key);
 
                 this.endInputTimeout = setTimeout(async () => {
-                    this.updateState(7);
-                    await this.props.onVerifyMasterPassword();
+                    await this.props.onVerifyMasterPassword(this.props.currentScreenContents);
+                    this.updateState(7);                    
                     
                     setTimeout(() => {
                         if (this.props.isMasterCodeMatch) {

@@ -7,7 +7,7 @@ import Panel from './containers/Panel/Panel';
 
 const App = () => {
   return (
-    <Provider store={store}>
+    <Provider store={ store }>
       <Wrapper componentName="App">
         <Panel />
       </Wrapper>
