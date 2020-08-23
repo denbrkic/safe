@@ -100,24 +100,27 @@ export class Keypad extends Component {
                 }
                 this.props.onUpdateScreenContents(key);
 
-                this.endInputTimeout = setTimeout(() => {
+                this.endInputTimeout = setTimeout(async () => {
                     this.updateState(7);
-                    this.props.onVerifyMasterPassword();
-                    if (this.props.isMasterCodeMatch) {
-                        // There is a match
-                        this.updateState(4, false);
-                        // Start unlocking...
-                        setTimeout(() => {
-                            this.updateState(1);
-                        }, 3000);
-                    } else {
-                        // Error
-                        this.updateState(5, false);
-                        // Go back to password verification
-                        setTimeout(() => {
-                            this.updateState(3);
-                        }, 1200);
-                    }
+                    await this.props.onVerifyMasterPassword();
+                    
+                    setTimeout(() => {
+                        if (this.props.isMasterCodeMatch) {
+                            // There is a match
+                            this.updateState(4, false);
+                            // Start unlocking...
+                            setTimeout(() => {
+                                this.updateState(1);
+                            }, 3000);
+                        } else {
+                            // Error
+                            this.updateState(5, false);
+                            // Go back to password verification
+                            setTimeout(() => {
+                                this.updateState(3);
+                            }, 1200);
+                        }
+                    }, 1200);
                 }, 1200);
             }
         }
