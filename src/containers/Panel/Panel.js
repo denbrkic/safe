@@ -22,6 +22,6 @@ const mapStateToProps = (state) => ({
     serialNumber: state.safe.serialNumber
 });
 
-const mapDispatchToProps = (dispatch) => ({});
+const mapDispatchToProps = () => ({});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Panel);

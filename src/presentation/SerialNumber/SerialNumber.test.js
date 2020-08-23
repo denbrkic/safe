@@ -5,9 +5,19 @@ Enzyme.configure({adapter: new EnzymeAdapter()});
 
 import SerialNumber from './SerialNumber';
 
-describe('Serial number component', () => {
-    test('should render correctly', () => {
-        const wrapper = shallow(<SerialNumber />);
-        expect(wrapper).toBeTruthy();
+describe('SerialNumber component', () => {
+    let props;
+    let wrapper;
+
+    beforeEach(() => {
+        props = {
+            sn: 7131566486
+        };
+
+        wrapper = shallow(<SerialNumber {...props} />);
+    });
+
+    test('should contain the correct text', () => {
+        expect(wrapper.find('.SerialNumber--text').text()).toBe(`S/N: ${props.sn}`);
     });
 });
