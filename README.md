@@ -1,13 +1,18 @@
 # Hotel Safe Deposit Box Simulation
-The goal of this project is to simulate hotel safe deposit box.
+The goal of this project is to simulate a hotel safe deposit box.
 
 ## The stack
 React.js, Redux, SCSS
 
-## Development
-To run the local server and to build the project use:
+## The Development
+To spin up the local server use:
 ```bash
 yarn start
+```
+
+## Build the project
+To build the project use:
+```bash
 yarn build
 ```
 
